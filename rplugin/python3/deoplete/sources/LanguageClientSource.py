@@ -27,6 +27,9 @@ class Source(Base):
                 context["is_async"] = False
                 # TODO: error handling.
                 candidates = outputs[0].get("result", [])
+                for x in candidates:
+                    if not x['word']:
+                        x['word'] = x['abbr']
                 # log(str(candidates))
                 return candidates
         else:
