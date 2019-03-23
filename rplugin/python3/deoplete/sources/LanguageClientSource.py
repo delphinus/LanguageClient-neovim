@@ -1,4 +1,5 @@
 from .base import Base
+import re
 
 
 CompleteOutputs = "g:LanguageClient_omniCompleteResults"
@@ -30,6 +31,8 @@ class Source(Base):
                 for x in candidates:
                     if not x['word']:
                         x['word'] = x['abbr']
+                    elif not x['abbr'].startswith(x['word']):
+                        x['word'] = re.sub(r'\(.*', '', x['abbr'])
                 # log(str(candidates))
                 return candidates
         else:
